@@ -1,12 +1,21 @@
-# Verifiable Decryption for GBFV
-
-We implemented the proof-of-decryption protocol presented in the following [paper](https://eprint.iacr.org/2024/1684) in C. We leveraged basic primitives used in [Lazer](https://eprint.iacr.org/2024/1846),
-a library for lattice-based zero-knowledge proofs, and thoroughly extended it to construct our proof of decryption for [GBFV](https://eprint.iacr.org/2024/1587) ciphertexts.  
+# Blind zkSNARKs
+This repository contains all codes and assets regarding blind zkSNARKs. You can find:
+1. **Proof of Decryption:** We implemented the proof-of-decryption protocol presented in our [paper] (https://eprint.iacr.org/2024/1684) in C. We leveraged basic primitives used in [Lazer](https://eprint.iacr.org/2024/1846), a library for lattice-based zero-knowledge proofs, and thoroughly extended it to construct our proof of decryption for [GBFV](https://eprint.iacr.org/2024/1587) ciphertexts.
+   
+3. **Performance scripts**
 
 ### Learning materials
 * Paper: [Blind zkSNARKs for Private Proof Delegation and Verifiable Computation over Encrypted Data](https://eprint.iacr.org/2024/1684)
 * Blog post: [Blind zkSNARKs](https://www.esat.kuleuven.be/cosic/blog/blind-zksnarks/)
 * Video: [Nexus Speaker Series: Jannik Spiessens](https://www.youtube.com/watch?v=TPnmoeOf2w8)
+
+
+### Proof of Decryption
+The main source code related to verifiable decryption can be found in:  
+
+- Folder `vdec`
+- Folder `scripts`
+
 
 ### Team:
 * [Mariana Gama](https://mmargama.github.io/)
@@ -15,12 +24,6 @@ a library for lattice-based zero-knowledge proofs, and thoroughly extended it to
 * [Jannik Spiessens](https://www.esat.kuleuven.be/cosic/people/person/?u=u0165611)
 * [Frederik Vercauteren](https://www.esat.kuleuven.be/cosic/people/person/?u=u0031924)
 
-
-### Main source code
-The main source code related to verifiable decryption can be found in:  
-
-- Folder `vdec`
-- Folder `scripts`
 
 
 ### Acknowledgement
