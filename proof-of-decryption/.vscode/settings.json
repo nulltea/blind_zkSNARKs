@@ -1,0 +1,9 @@
+{
+    "files.associations": {
+        "inner.h": "c",
+        "falcon.h": "c",
+        "lazer.h": "c",
+        "vdec_ct_62bits.h": "c",
+        "vdec_ct_60bits.h": "c"
+    }
+}

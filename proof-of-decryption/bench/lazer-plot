@@ -1,0 +1,181 @@
+#!/usr/bin/env python3
+import sys
+import csv
+import getopt
+from subprocess import Popen, PIPE
+
+# defaults
+gnuplot = 'gnuplot'
+unit = 'us'
+stat = 'avg'
+file = ''
+
+# program info
+prg = 'lazer-plot'
+version = '0.1.0'
+url = 'XXX'
+
+EXIT_SUCCESS = int(0)
+EXIT_FAILURE = int(1)
+
+argstart = 1
+
+
+def opt_help(url_):
+    out = f"""Usage: lazer-plot [-hv] [-o <file>] [-u <cycles|us>] [-s <q1|q2|q3|avg>] file...
+Options:
+  -h, --help                 Display this information.
+  -v, --version              Display version information.
+  -o, --output <file>        Write .eps output to <file>.
+  -u, --unit <cycles|us>     Time unit cycles or us (default).
+  -s, --stat <q1|q2|q3|avg>  Plot 1st, 2nd or 3rd quartile or average (default).
+
+lazer home page: <{url_}>"""
+    print(out)
+
+
+def opt_version(version_):
+    out = f"lazer-plot {version_}"
+    print(out)
+
+
+def opt_unit(unit_):
+    global unit
+    if unit_ == 'us' or unit_ == 'cycles':
+        unit = unit_
+    else:
+        print(f"{prg}: invalid time unit {unit_}.\n")
+        sys.exit(EXIT_FAILURE)
+
+
+def opt_stat(stat_):
+    global stat
+    if stat_ == 'avg' or stat_ == 'q1' or stat_ == 'q2' or stat_ == 'q3':
+        stat = stat_
+    else:
+        print(f"{prg}: invalid statistic {stat_}.\n")
+        sys.exit(EXIT_FAILURE)
+
+
+def opt_output(file_):
+    global file
+    file = file_
+
+
+try:
+    opts, args = getopt.getopt(sys.argv[argstart:], 'hvo:u:s:', [
+                               "help", "version", "output=", "unit=", "stat="])
+except getopt.GetoptError:
+    print(f"{prg}: unrecognized options.\n")
+    opt_help(url)
+    sys.exit(EXIT_FAILURE)
+
+for opt, arg in opts:
+    if opt in ('-h', '--help'):
+        opt_help(url)
+        sys.exit(EXIT_SUCCESS)
+    elif opt in ('-v', '--version'):
+        opt_version(version)
+        sys.exit(EXIT_SUCCESS)
+    elif opt in ('-o', '--output'):
+        opt_output(arg)
+    elif opt in ('-u', '--unit'):
+        opt_unit(arg)
+    elif opt in ('-s', '--stat'):
+        opt_stat(arg)
+    else:
+        print(f"{prg}: unrecognized options.\n")
+        opt_help(url)
+        sys.exit(EXIT_FAILURE)
+
+infiles = args
+
+if len(infiles) <= 0:
+    # no input files
+    sys.exit(EXIT_SUCCESS)
+
+if len(infiles) > 1:
+    # if we have more than one input file, make sure all
+    # files have the same format i.e., all first rows (y-axis)
+    # are equal and all first columns (x-axis) are equal.
+    col1 = []
+    with open(infiles[0], newline='') as f:
+        reader = csv.reader(f)
+        row1 = [s.strip() for s in reader.__next__()]
+        for row in reader:
+            if len(row) > 0:
+                col1.append(row[0].strip())
+    for i in range(1, len(infiles)):
+        with open(infiles[i], newline='') as f:
+            reader = csv.reader(f)
+            row1_ = [s.strip() for s in reader.__next__()]
+            if (row1 != row1_):
+                print(f"{prg}: input files have different formats (y-axis).\n")
+                sys.exit(EXIT_FAILURE)
+            col1_ = []
+            for row in reader:
+                if len(row) > 0:
+                    col1_.append(row[0].strip())
+            if (col1_ != col1):
+                print(f"{prg}: input files have different formats (x-axis).\n")
+                sys.exit(EXIT_FAILURE)
+
+infiles = ' '.join(infiles)
+
+plotgp = f"""
+set datafile separator ',' # .csv
+
+set style data histogram
+set style fill solid border -1
+
+set key autotitle columnhead # ignore first row
+set key noenhanced
+set key outside
+set key top center
+set key horizontal
+
+set xtics noenhanced
+set xtics in rotate by -45
+
+set yrange [0:]
+
+unit = '{unit}'
+stat = '{stat}'
+file = '{file}'
+args = '{infiles}'
+
+if (file eq '') {{
+}} else {{
+    set terminal postscript eps enhanced color
+    set output file
+}}
+
+if (unit eq 'cycles') {{
+    unit = 'cycles'
+    col = 2
+}}
+if (unit eq 'us') {{
+    unit = 'us'
+    col = 6
+}}
+
+if (stat eq 'avg') {{
+    col = col + 0
+}}
+if (stat eq 'q1') {{
+    col = col + 1
+}}
+if (stat eq 'q2') {{
+    col = col + 2
+}}
+if (stat eq 'q3') {{
+    col = col + 3
+}}
+
+set ylabel unit noenhanced
+
+plot for [f in args] f using col:xtic(1) title f noenhanced
+"""
+
+p = Popen([gnuplot, '-p', '-d'], stdin=PIPE)
+p.communicate(plotgp.encode('utf-8'))

@@ -1,0 +1,9 @@
+modulus type ?
+static internal functions
+
+ring->q->nlimbs .. space for some adds
+
+make lnp_tbox etc internal
+pass s=(<s1>,<m>) to subprotos ?
+
+no range proof (s4) resp. no l2/binary proof (s3)

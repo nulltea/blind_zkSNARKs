@@ -1,0 +1,74 @@
+void test_lrot (const polyring_t ring) {
+    printf("\n- Testig rotation ...\n");
+    poly_t poly, poly2, poly3;
+    poly_alloc(poly, ring);
+    poly_alloc(poly2, ring);
+    poly_alloc(poly3, ring);
+
+    // Create a vector with 5 elements
+    INTVEC_T(my_vector, ring->d, ring->q->nlimbs);
+    // Set elements to 1, 2, 3, 4, 5
+    for (size_t i = 0; i < ring->d; i++)
+    {
+        intvec_set_elem_i64(my_vector, i, i+1);
+    }
+    intvec_set_elem_i64(my_vector, 0, 1);
+    printf("my_vector1: " );
+    intvec_dump(my_vector); // prints vector
+
+    poly_set_coeffvec(poly, my_vector);
+    for (size_t i = 0; i < poly->coeffs->nelems; i++)
+        printf("%lld ", (long long)intvec_get_elem_i64(poly->coeffs, i));
+    printf("\n");
+
+    INTVEC_T(my_vector2, ring->d, ring->q->nlimbs);
+    // Set elements to 1, 2, 3, 4, 5
+    for (size_t i = 0; i < ring->d; i++)
+    {
+        intvec_set_elem_i64(my_vector2, i, i+1);
+    }
+    intvec_set_elem_i64(my_vector2, 0, 1);
+    printf("my_vector2: " );
+    intvec_dump(my_vector2); // prints vector
+
+    poly_set_coeffvec(poly2, my_vector2);
+    for (size_t i = 0; i < poly2->coeffs->nelems; i++)
+        printf("%lld ", (long long)intvec_get_elem_i64(poly2->coeffs, i));
+    printf("\n");
+
+    INTVEC_T(my_vector_rotated, ring->d, ring->q->nlimbs);
+    intvec_ptr my_vector_rotated_ptr = &my_vector_rotated;
+
+
+    intvec_reverse(my_vector, my_vector);
+
+    // Rot(my_vector) * my_vector2
+    INTVEC_T(rot_s_vec, ring->d, ring->q->nlimbs);
+    INT_T (new, 2*ring->q->nlimbs);
+    for (int i=0; i<my_vector_rotated_ptr->nelems; i++) {
+        intvec_lrot(my_vector_rotated_ptr, my_vector, i+1);
+        intvec_neg_self(my_vector_rotated_ptr);
+        //intvec_dump(my_vector_rotated);
+        intvec_dot(new, my_vector_rotated_ptr, my_vector2);
+
+        // do we need to do mod and redc?
+        //printf("new1: %lld\n", int_get_i64(new));
+        //int_mod(new, new, ring->q);
+        //printf("new2: %lld\n", int_get_i64(new));
+        //int_redp(new, new, ring->q);
+        //printf("new3: %lld\n", int_get_i64(new));
+        intvec_set_elem(&rot_s_vec, i, new);
+
+        //printf("%lld ", intvec_get_elem_i64(ct1_coeffs2, i));
+    }
+
+    printf("Rot(my_vector) * my_vector2: " );
+    intvec_dump(rot_s_vec); // prints vector
+    printf("\n");
+
+    poly_mul(poly3, poly, poly2);
+    poly_redc(poly3, poly3);
+    intvec_dump(poly3->coeffs);
+
+    printf("- Testig lrot ended.\n");
+}
