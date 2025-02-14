@@ -13,8 +13,8 @@ This repository contains all codes and assets regarding blind zkSNARKs. You can 
 ### Proof of Decryption
 The main source code related to verifiable decryption can be found in:  
 
-- Folder `vdec`
-- Folder `scripts`
+- Folder `proof-of-decryption/vdec`
+- Folder `proof-of-decryption/scripts`
 
 
 ### Team:
