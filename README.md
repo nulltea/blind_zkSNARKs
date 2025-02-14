@@ -4,11 +4,6 @@ This repository contains all codes and assets regarding blind zkSNARKs. You can 
    
 3. **Performance estimation for Blind Fractal ([Magma](http://magma.maths.usyd.edu.au/magma/) scripts)**
 
-### Learning materials
-* Paper: [Blind zkSNARKs for Private Proof Delegation and Verifiable Computation over Encrypted Data](https://eprint.iacr.org/2024/1684)
-* Blog post: [Blind zkSNARKs](https://www.esat.kuleuven.be/cosic/blog/blind-zksnarks/)
-* Video: [Nexus Speaker Series: Jannik Spiessens](https://www.youtube.com/watch?v=TPnmoeOf2w8)
-
 
 ### Proof of Decryption
 The main source code related to verifiable decryption can be found in:  
@@ -19,7 +14,6 @@ The main source code related to verifiable decryption can be found in:
 
 ### Team:
 * Anonymous for now
-
 
 
 ### Acknowledgement
