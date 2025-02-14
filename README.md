@@ -2,7 +2,7 @@
 This repository contains all codes and assets regarding blind zkSNARKs. You can find:
 1. **Proof of Decryption:** We implemented the proof-of-decryption protocol presented in our [paper] (https://eprint.iacr.org/2024/1684) in C. We leveraged basic primitives used in [Lazer](https://eprint.iacr.org/2024/1846), a library for lattice-based zero-knowledge proofs, and thoroughly extended it to construct our proof of decryption for [GBFV](https://eprint.iacr.org/2024/1587) ciphertexts.
    
-3. **Performance estimation for Blind Fractal**:
+3. **Performance estimation for Blind Fractal ([Magma](http://magma.maths.usyd.edu.au/magma/) scripts)**
 
 ### Learning materials
 * Paper: [Blind zkSNARKs for Private Proof Delegation and Verifiable Computation over Encrypted Data](https://eprint.iacr.org/2024/1684)
