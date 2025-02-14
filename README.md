@@ -18,11 +18,7 @@ The main source code related to verifiable decryption can be found in:
 
 
 ### Team:
-* [Jannik Spiessens](https://www.esat.kuleuven.be/cosic/people/person/?u=u0165611)
-* [Jiayi Kang](https://jiayikang2.github.io/)
-* [Mariana Gama](https://mmargama.github.io/)
-* [Emad Heydari Beni](https://heydari.be)
-* [Frederik Vercauteren](https://www.esat.kuleuven.be/cosic/people/person/?u=u0031924)
+* Anonymous for now
 
 
 
