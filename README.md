@@ -17,4 +17,4 @@ The main source code related to verifiable decryption can be found in:
 
 
 ### Acknowledgement
-We thank Robin Geelen for helping us use the GBFV implementation and Vadim Lyubashevsky and Patrick Steuer for helping us use the Lazer library. This work was supported in part by the European Research Council (ERC) under the European Union’s Horizon 2020 research and innovation programme (grant agreement ISOCRYPT - No. 101020788) and by CyberSecurity Research Flanders with reference number VR20192203. A large part of the codebase is copied verbatim from [Lazer](https://eprint.iacr.org/2024/1846), produced by IBM Research Europe.
+We thank Robin Geelen for helping us use the GBFV implementation and Vadim Lyubashevsky and Patrick Steuer for helping us use the Lazer library. A large part of the codebase is copied verbatim from [Lazer](https://eprint.iacr.org/2024/1846), produced by IBM Research Europe.
