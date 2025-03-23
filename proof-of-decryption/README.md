@@ -24,4 +24,4 @@ The required dependencies are exactly the same as [Lazer](https://github.com/laz
 
 
 ### How to compile and run the tests/benchmarks
-You are familiar with Visual Studio Code; tasks are already configured in `.vscode` for building, debugging, and cleaning the project. Otherwise, you can run `make all`. This command also runs the code in the `video` folder and generates the executable binary.
+You are familiar with Visual Studio Code; tasks are already configured in `.vscode` for building, debugging, and cleaning the project. Otherwise, you can run `make all`. This command also runs the code in the `vdec` folder and generates the executable binary.
