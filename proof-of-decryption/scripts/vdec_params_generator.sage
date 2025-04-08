@@ -74,7 +74,7 @@ rejs1 = 1
 rejs2 = 1
 gamma1 = 10
 gamma2 = 10
-gamma4 = 5  # Emad
+gamma4 = 5
 
 load(params_file)
 
@@ -82,7 +82,7 @@ assert rejs1 == 1
 assert rejs2 == 1  # XXX add bimodal option
 gamma1= mpf(gamma1)
 gamma2= mpf(gamma2)
-gamma4 = mpf(gamma4) # Emad
+gamma4 = mpf(gamma4)
 
 # X^d + 1 mod q1,q2 must split into L=2 irreductible factors.
 # q1, q2 odd primes, q1, q2 = 2L+1 mod 4L, q1 < q2
@@ -101,7 +101,6 @@ if 'log2q1' in globals():
 else:
     log2q1 = log2q
 
-# Emad
 alpha4 = 1
 #if nprime > 0 and Bprime > 0:
 approx_proof = 1
