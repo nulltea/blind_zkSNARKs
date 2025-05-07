@@ -6,7 +6,7 @@ CFLAGS_DEBUG = $(CFLAGS_WARN) -Og -ggdb3
 ADD_CPPFLAGS = -DNDEBUG
 
 CPPFLAGS += $(ADD_CPPFLAGS)
-LIBS = -lm $(HEXL_DIR)/build/hexl/lib64/libhexl.a -lstdc++
+LIBS = -lm $(HEXL_DIR)/build/hexl/lib/libhexl.a -lstdc++
 
 #========
 # OpenMP

@@ -49,7 +49,7 @@ print("BFV.enc.(e0,e1) generated.")
 # -- encrypt
 m = poly_t.urandom_static(Rt, 5, secrets.token_bytes(32), 0)
 print("BFV.enc.m prepared randomly.")
-# m.print()
+m.print()
 
 # ct0 = poly_t(R, None)
 # ct1 = poly_t(R, None)
@@ -60,6 +60,8 @@ print("BFV.enc.m prepared randomly.")
 # print("m_delta=",m_delta.to_list()[:10])
 m_modq = poly_t(R, m.to_list())
 #print("m*delta=",m_modq.__mul__(delta).to_list()[:10])
+
+print("BFV.pk[0] =", pk[0].to_list()[:10])
 
 m_delta = poly_t(R, (m_modq.__mul__(delta).to_list()))
 #print("m*delta=",m_delta.to_list()[:10])

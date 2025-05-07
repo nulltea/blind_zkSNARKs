@@ -561,15 +561,6 @@ typedef struct
   const abdlop_params_srcptr quad_many;
   const unsigned int lambda;
 
-  // for vdec
-  const int_srcptr inv4;
-  // for vdec
-  const unsigned int log2stdev4; /* stdev4 = 1.55 * 2^log2stdev2 */
-  const int_srcptr scM4;         /* scaled M4: round(M4 * 2^128) */
-  // for vdec
-  const int_srcptr stdev4sq;
-  // for vdec
-  const int_srcptr Bz4;
 } lnp_quad_eval_params_struct;
 typedef lnp_quad_eval_params_struct lnp_quad_eval_params_t[1];
 typedef lnp_quad_eval_params_struct *lnp_quad_eval_params_ptr;

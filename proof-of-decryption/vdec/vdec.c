@@ -9,8 +9,8 @@
 // #include "vdec_ct_newq.h"
 //#include "vdec_ct.h"
 // #include "vdec_ct_62bits.h"
-//#include "vdec_ct_60bits.h"
-#include "vdec_ct_gbfv_60bits_small.h"
+#include "vdec_ct_lattigo.h"
+// #include "vdec_ct_gbfv_60bits_small.h"
 #include <mpfr.h>
 #include <sys/time.h>
 
@@ -140,6 +140,7 @@ int main(void)
     polyvec_alloc(ct0_vec_polys, Rq, total_polys);
     // POLYVEC_T(ct0_vec_polys, Rq, total_polys);
     
+    
     // You can treat static_ct0 as a one-dimensional array in memory 
     // since C stores arrays in row-major order. Cast it to a one-dimensional array as follows:
     const int64_t *flat_static_ct0 = (const int64_t *)static_ct0;
@@ -176,8 +177,8 @@ int main(void)
     }
     // print_polyvec_element("First element of ct0", ct0_vec_polys, 0, 64);
     // some manual tests:
-    // print_polyvec_element("First element of ct0", ct0_vec_polys, 0, 1);
-    // print_polyvec_element("Last element of ct0", ct0_vec_polys, ct0_vec_polys->nelems-1, 64);
+    print_polyvec_element("First element of ct0", ct0_vec_polys, 0, 10);
+    print_polyvec_element("Last element of ct0", ct0_vec_polys, ct0_vec_polys->nelems-1, 64);
     // printf("\nNumber of polynomials in ct0_vec_polys is %d", ct0_vec_polys->nelems);
     // printf("\nNumber of polynomials in ct0_vec_polys should be %d\n", total_polys);
 
@@ -445,7 +446,7 @@ static void vdec_lnp_tbox(uint8_t seed[32], const lnp_quad_eval_params_t params,
     // build witness and commit
     polyvec_t tobe_sk; // vectors to be committed using abdlop
     polyvec_get_subvec(tobe_sk, s1, 0, sk->nelems, 1);
-    polyvec_set(tobe_sk, sk);
+    // polyvec_set(tobe_sk, sk);
 
 
     // generate abdlop keys and commit to sk (ajtai part) and the vinh (bdlop part)
@@ -784,7 +785,7 @@ static void vdec_lnp_tbox(uint8_t seed[32], const lnp_quad_eval_params_t params,
         // printf("sampled signs\n");
 
         /* yv, append to m  */
-        polyvec_grandom (yv, params->log2stdev4, seed, dom++); // stdev4 or 3??
+        polyvec_grandom (yv, 51, seed, dom++); // stdev4 or 3??
         //polyvec_set_zero(yv); // DEBUG to remove
         polyvec_set (yv_, yv);
         /* tyv */
@@ -1111,7 +1112,7 @@ static void vdec_lnp_tbox(uint8_t seed[32], const lnp_quad_eval_params_t params,
     poly = spolymat_insert_elem (R2prime_sz[i], ibeta, ibeta);
     poly_set_zero (poly);
     coeff = poly_get_coeff (poly, 0);
-    int_set (coeff, params->inv4); // double check inv4 which was added to quad_eval_params
+    int_set (coeff, params1_inv4); // double check inv4 which was added to quad_eval_params
     poly = spolymat_insert_elem (R2prime_sz[i], ibeta, ibeta + 1);
     poly_set_zero (poly);
     coeff = poly_get_coeff (poly, 0);
@@ -1119,7 +1120,7 @@ static void vdec_lnp_tbox(uint8_t seed[32], const lnp_quad_eval_params_t params,
     poly = spolymat_insert_elem (R2prime_sz[i], ibeta + 1, ibeta + 1);
     poly_set_zero (poly);
     coeff = poly_get_coeff (poly, 0);
-    int_set (coeff, params->inv4);
+    int_set (coeff, params1_inv4);
     R2prime_sz[i]->sorted = 1;
 
     r1prime_sz[i] = NULL;
@@ -1253,7 +1254,7 @@ static void vdec_lnp_tbox(uint8_t seed[32], const lnp_quad_eval_params_t params,
     INT_T (l2, 2*int_get_nlimbs (Rq->q));
     polyvec_fromcrt (zv);
     polyvec_l2sqr (l2, zv);
-    b = (int_le (l2, params->Bz4));
+    b = (int_le (l2, params1_Bz4));
     // int_dump(l2);
     // int_dump(params->Bz4);
     printf("--> zv bound verification result: %d\n", b);
